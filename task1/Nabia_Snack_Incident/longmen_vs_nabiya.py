@@ -139,39 +139,39 @@ def main_battle_loop():
     print("开始战斗!!!")
     time.sleep(1)
     while 1:
-        print(f"\n\n======== 回合 {turn}========")
+        print(f"\n======== 回合 {turn}========")
         display_status("长门",nagato_hp,NAGATO_MAX_HP)
         display_status("娜比娅",nabiya_hp,NABIYA_MAX_HP)
         time.sleep(1)
         print("\n>>> 长门的回合")
         nagato_action=choose_nagato_action(nagato_hp,nabiya_hp)
         if nagato_action=='defend':
-            print("\n长门选择了防御,败局已定")
+            print("长门选择了防御,败局已定")
             time.sleep(1)
             nagato_defense_bonus=calculate_defense_value(NAGATO_DEFEND_DICE)
-            print(f"\n长门获得了{nagato_defense_bonus}点的护盾")
+            print(f"长门获得了{nagato_defense_bonus}点的护盾")
         elif nagato_action=='attack':
-            print("\n长门使用了炮击")
+            print("长门使用了炮击")
             time.sleep(1)
             damage=calculate_attack_damage(NAGATO_ATTACK_DICE)
             if check_critical_hit(damage):
                 real_damage=damage*2-nabiya_defense_bonus
                 if real_damage<0:real_damage=0
                 nabiya_hp-=real_damage
-                print(f"\n长门触发了⌈BIG SEVEN⌋，造成了{real_damage}点伤害",)
-                print("\n长门：没错，我们⌈BIG SEVEN⌋的触发概率真是太高了！！！")
+                print(f"长门触发了⌈BIG SEVEN⌋，造成了{real_damage}点伤害",)
+                print("长门：没错，我们⌈BIG SEVEN⌋的触发概率真是太高了！！！")
             else:
                 real_damage=damage-nabiya_defense_bonus
                 if real_damage<0:real_damage=0
                 nabiya_hp-=real_damage
-                print(f"\n炮击造成了{real_damage}点伤害")
+                print(f"炮击造成了{real_damage}点伤害")
         elif nagato_action=='special':
             status=random.randint(0,1)
-            print("\n长门试图触发⌈四万神的守护⌋")
+            print("长门试图触发⌈四万神的守护⌋")
             time.sleep(1)
             if status:
-                print(f"\n触发成功，造成了{SPECIAL_ATTACK_DAMAGE-nabiya_defense_bonus}点伤害")
-                print("\n长门：虽然我的血比你厚，但是我还会开大啊")
+                print(f"触发成功，造成了{SPECIAL_ATTACK_DAMAGE-nabiya_defense_bonus}点伤害")
+                print("长门：虽然我的血比你厚，但是我还会开大啊")
                 nabiya_hp-=SPECIAL_ATTACK_DAMAGE
                 nabiya_hp+=nabiya_defense_bonus
             else:
@@ -181,40 +181,39 @@ def main_battle_loop():
                 time.sleep(1)
                 print("\n……")
                 time.sleep(1)
-                print("\n长门：怎么，你还不赶紧出招吗，我都打算让你一回合了")
+                print("长门：怎么，你还不赶紧出招吗，我都打算让你一回合了")
 
         nabiya_defense_bonus=0
 
         if nabiya_hp<=0:
-            print("\n\n「呼~~，终于是赢了啊，打个简单的‘呆妈’居然用了两个多小时，为什么呢，可能是因为‘蚊子’太多了吧」")
             break
         
         time.sleep(1)
-        print("\n\n>>> 娜比娅的回合")
+        print("\n>>> 娜比娅的回合")
         nabiya_action=nabiya_ai_action(nabiya_hp)
         if nabiya_action=='defend':
-            print("\n娜比娅选择了防御，败局已定")
+            print("娜比娅选择了防御，败局已定")
             time.sleep(1)
             nabiya_defense_bonus=calculate_defense_value(NABIYA_DEFEND_DICE)
-            print(f"\n娜比娅获得了{nabiya_defense_bonus}点的护盾")
+            print(f"娜比娅获得了{nabiya_defense_bonus}点的护盾")
         elif nabiya_action=='attack':
-            print("\n娜比娅使用了炮击")
+            print("娜比娅使用了炮击")
             time.sleep(1)
             damage=calculate_attack_damage(NABIYA_ATTACK_DICE)
             real_damage=damage-nagato_defense_bonus
             if real_damage<0:real_damage=0
             nagato_hp-=real_damage
-            print(f"\n炮击造成了{real_damage}点伤害")
+            print(f"炮击造成了{real_damage}点伤害")
 
         nagato_defense_bonus=0
 
         if nagato_hp<=0:
             time.sleep(1)
-            print("\n\n……")
+            print("\n……")
             time.sleep(1)
-            print("\n很遗憾，长门输了，但是……")
+            print("很遗憾，长门输了，但是……")
             time.sleep(1)
-            print("\n我们还有下面那行输出啊")
+            print("\n我们依然拥有下面那行输出")
             time.sleep(1)
             break
 
