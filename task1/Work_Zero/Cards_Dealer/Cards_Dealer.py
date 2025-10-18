@@ -49,20 +49,20 @@ print(player2)
 print(player3)
 print(other)'''
 
-with open("task1/Work_Zero/Cards_Dealer/result/player1.txt","w") as file1:
+with open("task1/Work_Zero/Cards_Dealer/result/player1.txt","w") as file:
     for i in player1:
-        file1.writelines(i)
+        file.writelines(i)
 
-with open("task1/Work_Zero/Cards_Dealer/result/player2.txt","w") as file1:
+with open("task1/Work_Zero/Cards_Dealer/result/player2.txt","w") as file:
     for i in player2:
-        file1.writelines(i)
+        file.writelines(i)
 
-with open("task1/Work_Zero/Cards_Dealer/result/player3.txt","w") as file1:
+with open("task1/Work_Zero/Cards_Dealer/result/player3.txt","w") as file:
     for i in player3:
-        file1.writelines(i)
+        file.writelines(i)
 
-with open("task1/Work_Zero/Cards_Dealer/result/others.txt","w") as file1:
+with open("task1/Work_Zero/Cards_Dealer/result/others.txt","w") as file:
     for i in others:
-        file1.writelines(i)
+        file.writelines(i)
 
 
