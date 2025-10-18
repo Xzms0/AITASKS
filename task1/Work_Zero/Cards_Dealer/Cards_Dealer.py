@@ -7,7 +7,7 @@ others=[]
 
 CARDS={"Hearts":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
        "Spades":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
-       "Diamands":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
+       "Diamonds":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
        "Clubs":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
        "Joker":['Big_Joker','Little_Joker']}
 
@@ -19,7 +19,7 @@ CARDS_VALUE={"Big_Joker":17,"Little_Joker":16,
 def choose(num):
     if num<=13:suit="Hearts"
     elif num<=26:suit="Spades"
-    elif num<=39:suit="Diamands"
+    elif num<=39:suit="Diamonds"
     elif num<=52:suit="Clubs"
     else:suit="Joker"
     name=CARDS[suit][(num-1)%13]
