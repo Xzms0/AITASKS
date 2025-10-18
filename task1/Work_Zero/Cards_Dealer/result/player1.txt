@@ -1,0 +1,17 @@
+Joker:Big_Joker
+Joker:Little_Joker
+Diamands:A
+Spades:K
+Clubs:Q
+Diamands:J
+Hearts:J
+Spades:10
+Clubs:10
+Clubs:9
+Hearts:9
+Hearts:8
+Spades:8
+Diamands:8
+Hearts:6
+Diamands:4
+Clubs:3
