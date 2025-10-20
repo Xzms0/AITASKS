@@ -1,0 +1,17 @@
+Diamonds:2
+Clubs:2
+Clubs:A
+Clubs:K
+Hearts:K
+Spades:K
+Clubs:J
+Spades:J
+Diamonds:10
+Hearts:10
+Diamonds:8
+Spades:8
+Diamonds:7
+Spades:7
+Clubs:7
+Hearts:5
+Hearts:3
