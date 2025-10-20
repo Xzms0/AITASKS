@@ -1,9 +1,7 @@
 import random
+from pathlib import Path
 
-player1=[]
-player2=[]
-player3=[]
-others=[]
+results={"player1":[],"player2":[],"player3":[],"others":[]}
 
 CARDS={"Hearts":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
        "Spades":['A','2','3','4','5','6','7','8','9','10','J','Q','K'],
@@ -22,6 +20,7 @@ def choose(num):
     elif num<=39:suit="Diamonds"
     elif num<=52:suit="Clubs"
     else:suit="Joker"
+    
     name=CARDS[suit][(num-1)%13]
     return [suit,":",name,"\n"]
     
@@ -30,39 +29,23 @@ def dealer():
     cards_list=random.sample(range(1,55), 54)
 
     for i in range(51):
-        if i%3==0:player1.append(choose(cards_list[i]))
-        elif i%3==1:player2.append(choose(cards_list[i]))
-        elif i%3==2:player3.append(choose(cards_list[i]))
+        if i%3==0:results["player1"].append(choose(cards_list[i]))
+        elif i%3==1:results["player2"].append(choose(cards_list[i]))
+        elif i%3==2:results["player3"].append(choose(cards_list[i]))
+
     for i in range(51,54):
-        others.append(choose(cards_list[i]))
+        results["others"].append(choose(cards_list[i]))
 
     sort_key=lambda tmp : CARDS_VALUE[tmp[2]]
-    player1.sort(key=sort_key,reverse=True)
-    player2.sort(key=sort_key,reverse=True)
-    player3.sort(key=sort_key,reverse=True)
-    others.sort(key=sort_key,reverse=True)
+    for player in list(results.keys()):
+        results[player].sort(key=sort_key,reverse=True)
 
-dealer()
+    root_dir=Path(__file__).absolute().parent/"results"
+    for player in list(results.keys()):
+        txt=root_dir/f"{player}.txt"
+        with open(txt,"w") as file:
+            for line in results[txt.stem]:
+                file.writelines(line)
 
-'''print(player1)
-print(player2)
-print(player3)
-print(other)'''
-
-with open("task1/Work_Zero/Cards_Dealer/result/player1.txt","w") as file:
-    for i in player1:
-        file.writelines(i)
-
-with open("task1/Work_Zero/Cards_Dealer/result/player2.txt","w") as file:
-    for i in player2:
-        file.writelines(i)
-
-with open("task1/Work_Zero/Cards_Dealer/result/player3.txt","w") as file:
-    for i in player3:
-        file.writelines(i)
-
-with open("task1/Work_Zero/Cards_Dealer/result/others.txt","w") as file:
-    for i in others:
-        file.writelines(i)
-
-
+if __name__ == "__main__":
+    dealer()
