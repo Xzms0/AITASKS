@@ -18,8 +18,9 @@ def useless():
         for j in range(1,1000):
             sum+=(i%j)
     print(f"The result is {sum}.")
-
-useless()
+    
+if __name__ == "__main__":
+    useless()
 
 
 

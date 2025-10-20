@@ -32,11 +32,12 @@ class MyZoo:
             return True
         return False
 
-my_zoo1=MyZoo({"dog":5,"cat":7})
-my_zoo2=MyZoo({"cat":3,"dog":10})
-print(f"Zoo1's Len: {len(my_zoo1)}")
-print(f"Zoo2's Len: {len(my_zoo2)}")
-print(f"Zoo1's Print: {my_zoo1}")
-print(f"Zoo2's Print: {my_zoo2}")
-print(f"Zoo1 == Zoo2: {my_zoo1==my_zoo2}")
-print(f"Zoo1 != Zoo2: {my_zoo1!=my_zoo2}")
+if __name__ == "__mian__":
+    my_zoo1=MyZoo({"dog":5,"cat":7})
+    my_zoo2=MyZoo({"cat":3,"dog":10})
+    print(f"Zoo1's Len: {len(my_zoo1)}")
+    print(f"Zoo2's Len: {len(my_zoo2)}")
+    print(f"Zoo1's Print: {my_zoo1}")
+    print(f"Zoo2's Print: {my_zoo2}")
+    print(f"Zoo1 == Zoo2: {my_zoo1==my_zoo2}")
+    print(f"Zoo1 != Zoo2: {my_zoo1!=my_zoo2}")
