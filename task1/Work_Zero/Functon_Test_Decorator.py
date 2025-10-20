@@ -19,7 +19,8 @@ def useless():
             sum+=(i%j)
     print(f"The result is {sum}.")
 
-useless()
+if __name__ == "__main__":
+    useless()
 
 
 
