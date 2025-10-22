@@ -32,7 +32,7 @@ class MyZoo:
             return True
         return False
 
-if __name__ == "__mian__":
+if __name__ == "__main__":
     my_zoo1=MyZoo({"dog":5,"cat":7})
     my_zoo2=MyZoo({"cat":3,"dog":10})
     print(f"Zoo1's Len: {len(my_zoo1)}")
