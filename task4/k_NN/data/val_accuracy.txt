@@ -1,0 +1,274 @@
+------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 5000
+
+>>> Val_K: 1, Accuracy: 38.58%
+>>> Val_K: 2, Accuracy: 34.50%
+>>> Val_K: 3, Accuracy: 36.54%
+>>> Val_K: 4, Accuracy: 37.12%
+>>> Val_K: 5, Accuracy: 37.66%
+>>> Val_K: 6, Accuracy: 37.32%
+>>> Val_K: 7, Accuracy: 37.76%
+>>> Val_K: 8, Accuracy: 37.50%
+>>> Val_K: 9, Accuracy: 37.64%
+>>> Val_K: 10, Accuracy: 37.58%
+>>> Val_K: 11, Accuracy: 38.16%
+>>> Val_K: 12, Accuracy: 37.98%
+>>> Val_K: 13, Accuracy: 37.76%
+>>> Val_K: 14, Accuracy: 37.68%
+>>> Val_K: 15, Accuracy: 37.38%
+>>> Val_K: 16, Accuracy: 37.52%
+>>> Val_K: 17, Accuracy: 37.56%
+>>> Val_K: 18, Accuracy: 37.18%
+>>> Val_K: 19, Accuracy: 37.48%
+>>> Val_K: 20, Accuracy: 37.30%
+>>> Best_K: 1, Accuracy: 38.58%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 5000
+
+>>> Val_K: 1, Accuracy: 36.20%
+>>> Val_K: 2, Accuracy: 31.88%
+>>> Val_K: 3, Accuracy: 33.64%
+>>> Val_K: 4, Accuracy: 34.42%
+>>> Val_K: 5, Accuracy: 34.30%
+>>> Val_K: 6, Accuracy: 34.76%
+>>> Val_K: 7, Accuracy: 34.22%
+>>> Val_K: 8, Accuracy: 35.04%
+>>> Val_K: 9, Accuracy: 34.76%
+>>> Val_K: 10, Accuracy: 34.60%
+>>> Val_K: 11, Accuracy: 34.70%
+>>> Val_K: 12, Accuracy: 34.58%
+>>> Val_K: 13, Accuracy: 34.22%
+>>> Val_K: 14, Accuracy: 34.12%
+>>> Val_K: 15, Accuracy: 34.62%
+>>> Val_K: 16, Accuracy: 34.50%
+>>> Val_K: 17, Accuracy: 34.24%
+>>> Val_K: 18, Accuracy: 34.38%
+>>> Val_K: 19, Accuracy: 34.28%
+>>> Val_K: 20, Accuracy: 33.94%
+>>> Best_K: 1, Accuracy: 36.20%
+------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 1000
+
+>>> Val_K: 1, Accuracy: 37.70%
+>>> Val_K: 2, Accuracy: 34.20%
+>>> Val_K: 3, Accuracy: 37.40%
+>>> Val_K: 4, Accuracy: 38.10%
+>>> Val_K: 5, Accuracy: 37.20%
+>>> Val_K: 6, Accuracy: 38.40%
+>>> Val_K: 7, Accuracy: 38.10%
+>>> Val_K: 8, Accuracy: 38.30%
+>>> Val_K: 9, Accuracy: 38.80%
+>>> Val_K: 10, Accuracy: 37.80%
+>>> Val_K: 11, Accuracy: 38.50%
+>>> Val_K: 12, Accuracy: 39.00%
+>>> Val_K: 13, Accuracy: 37.60%
+>>> Val_K: 14, Accuracy: 38.80%
+>>> Val_K: 15, Accuracy: 38.50%
+>>> Val_K: 16, Accuracy: 38.60%
+>>> Val_K: 17, Accuracy: 38.70%
+>>> Val_K: 18, Accuracy: 38.80%
+>>> Val_K: 19, Accuracy: 38.50%
+>>> Val_K: 20, Accuracy: 38.10%
+>>> Best_K: 12, Accuracy: 39.00%
+------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 10000
+
+>>> Val_K: 1, Accuracy: 37.26%
+>>> Val_K: 2, Accuracy: 33.17%
+>>> Val_K: 3, Accuracy: 35.07%
+>>> Val_K: 4, Accuracy: 36.10%
+>>> Val_K: 5, Accuracy: 36.51%
+>>> Val_K: 6, Accuracy: 36.33%
+>>> Val_K: 7, Accuracy: 36.48%
+>>> Val_K: 8, Accuracy: 36.23%
+>>> Val_K: 9, Accuracy: 36.56%
+>>> Val_K: 10, Accuracy: 36.46%
+>>> Val_K: 11, Accuracy: 36.57%
+>>> Val_K: 12, Accuracy: 36.45%
+>>> Val_K: 13, Accuracy: 36.47%
+>>> Val_K: 14, Accuracy: 36.37%
+>>> Val_K: 15, Accuracy: 36.42%
+>>> Val_K: 16, Accuracy: 36.54%
+>>> Val_K: 17, Accuracy: 36.45%
+>>> Val_K: 18, Accuracy: 36.23%
+>>> Val_K: 19, Accuracy: 36.36%
+>>> Val_K: 20, Accuracy: 36.35%
+>>> Best_K: 1, Accuracy: 37.26%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 1000
+
+>>> Val_K: 1, Accuracy: 35.40%
+>>> Val_K: 2, Accuracy: 32.90%
+>>> Val_K: 3, Accuracy: 34.50%
+>>> Val_K: 4, Accuracy: 35.40%
+>>> Val_K: 5, Accuracy: 35.00%
+>>> Val_K: 6, Accuracy: 35.20%
+>>> Val_K: 7, Accuracy: 33.60%
+>>> Val_K: 8, Accuracy: 34.10%
+>>> Val_K: 9, Accuracy: 33.70%
+>>> Val_K: 10, Accuracy: 34.00%
+>>> Val_K: 11, Accuracy: 33.80%
+>>> Val_K: 12, Accuracy: 33.50%
+>>> Val_K: 13, Accuracy: 32.70%
+>>> Val_K: 14, Accuracy: 32.80%
+>>> Val_K: 15, Accuracy: 32.70%
+>>> Val_K: 16, Accuracy: 33.40%
+>>> Val_K: 17, Accuracy: 33.10%
+>>> Val_K: 18, Accuracy: 33.30%
+>>> Val_K: 19, Accuracy: 33.00%
+>>> Val_K: 20, Accuracy: 32.60%
+>>> Best_K: 1, Accuracy: 35.40%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 10000
+
+>>> Val_K: 1, Accuracy: 34.63%
+>>> Val_K: 2, Accuracy: 30.92%
+>>> Val_K: 3, Accuracy: 33.24%
+>>> Val_K: 4, Accuracy: 33.30%
+>>> Val_K: 5, Accuracy: 33.49%
+>>> Val_K: 6, Accuracy: 33.43%
+>>> Val_K: 7, Accuracy: 33.27%
+>>> Val_K: 8, Accuracy: 33.45%
+>>> Val_K: 9, Accuracy: 33.14%
+>>> Val_K: 10, Accuracy: 33.51%
+>>> Val_K: 11, Accuracy: 33.49%
+>>> Val_K: 12, Accuracy: 33.60%
+>>> Val_K: 13, Accuracy: 33.28%
+>>> Val_K: 14, Accuracy: 33.21%
+>>> Val_K: 15, Accuracy: 33.15%
+>>> Val_K: 16, Accuracy: 33.17%
+>>> Val_K: 17, Accuracy: 32.93%
+>>> Val_K: 18, Accuracy: 32.78%
+>>> Val_K: 19, Accuracy: 32.46%
+>>> Val_K: 20, Accuracy: 32.74%
+>>> Best_K: 1, Accuracy: 34.63%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 500
+TEST_SAMPLE: 100, VAL_SAMPLE: 100
+
+>>> Val_K: 1, Accuracy: 25.00%
+>>> Val_K: 2, Accuracy: 22.00%
+>>> Val_K: 3, Accuracy: 24.00%
+>>> Val_K: 4, Accuracy: 25.00%
+>>> Val_K: 5, Accuracy: 28.00%
+>>> Val_K: 6, Accuracy: 28.00%
+>>> Val_K: 7, Accuracy: 28.00%
+>>> Val_K: 8, Accuracy: 25.00%
+>>> Val_K: 9, Accuracy: 24.00%
+>>> Val_K: 10, Accuracy: 23.00%
+>>> Val_K: 11, Accuracy: 24.00%
+>>> Val_K: 12, Accuracy: 24.00%
+>>> Val_K: 13, Accuracy: 23.00%
+>>> Val_K: 14, Accuracy: 19.00%
+>>> Val_K: 15, Accuracy: 22.00%
+>>> Val_K: 16, Accuracy: 23.00%
+>>> Val_K: 17, Accuracy: 25.00%
+>>> Val_K: 18, Accuracy: 26.00%
+>>> Val_K: 19, Accuracy: 26.00%
+>>> Val_K: 20, Accuracy: 22.00%
+>>> Best_K: 5, Accuracy: 28.00%
+------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 2000
+
+>>> Val_K: 1, Accuracy: 38.45%
+>>> Val_K: 2, Accuracy: 35.00%
+>>> Val_K: 3, Accuracy: 37.25%
+>>> Val_K: 4, Accuracy: 37.70%
+>>> Val_K: 5, Accuracy: 38.55%
+>>> Val_K: 6, Accuracy: 39.05%
+>>> Val_K: 7, Accuracy: 38.60%
+>>> Val_K: 8, Accuracy: 38.55%
+>>> Val_K: 9, Accuracy: 39.20%
+>>> Val_K: 10, Accuracy: 38.40%
+>>> Val_K: 11, Accuracy: 38.40%
+>>> Val_K: 12, Accuracy: 38.80%
+>>> Val_K: 13, Accuracy: 38.00%
+>>> Val_K: 14, Accuracy: 38.20%
+>>> Val_K: 15, Accuracy: 38.05%
+>>> Val_K: 16, Accuracy: 38.35%
+>>> Val_K: 17, Accuracy: 38.00%
+>>> Val_K: 18, Accuracy: 38.05%
+>>> Val_K: 19, Accuracy: 38.15%
+>>> Val_K: 20, Accuracy: 37.80%
+>>> Best_K: 9, Accuracy: 39.20%------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 7000
+
+>>> Val_K: 1, Accuracy: 38.10%
+>>> Val_K: 2, Accuracy: 33.33%
+>>> Val_K: 3, Accuracy: 35.63%
+>>> Val_K: 4, Accuracy: 36.63%
+>>> Val_K: 5, Accuracy: 37.10%
+>>> Val_K: 6, Accuracy: 36.86%
+>>> Val_K: 7, Accuracy: 37.04%
+>>> Val_K: 8, Accuracy: 37.00%
+>>> Val_K: 9, Accuracy: 37.16%
+>>> Val_K: 10, Accuracy: 37.00%
+>>> Val_K: 11, Accuracy: 37.39%
+>>> Val_K: 12, Accuracy: 37.14%
+>>> Val_K: 13, Accuracy: 36.87%
+>>> Val_K: 14, Accuracy: 36.80%
+>>> Val_K: 15, Accuracy: 36.81%
+>>> Val_K: 16, Accuracy: 36.90%
+>>> Val_K: 17, Accuracy: 37.03%
+>>> Val_K: 18, Accuracy: 36.94%
+>>> Val_K: 19, Accuracy: 36.43%
+>>> Val_K: 20, Accuracy: 36.71%
+>>> Best_K: 1, Accuracy: 38.10%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 7000
+
+>>> Val_K: 1, Accuracy: 35.39%
+>>> Val_K: 2, Accuracy: 31.54%
+>>> Val_K: 3, Accuracy: 33.43%
+>>> Val_K: 4, Accuracy: 33.79%
+>>> Val_K: 5, Accuracy: 33.97%
+>>> Val_K: 6, Accuracy: 34.16%
+>>> Val_K: 7, Accuracy: 34.01%
+>>> Val_K: 8, Accuracy: 34.44%
+>>> Val_K: 9, Accuracy: 34.06%
+>>> Val_K: 10, Accuracy: 34.21%
+>>> Val_K: 11, Accuracy: 33.87%
+>>> Val_K: 12, Accuracy: 34.14%
+>>> Val_K: 13, Accuracy: 34.04%
+>>> Val_K: 14, Accuracy: 33.91%
+>>> Val_K: 15, Accuracy: 33.86%
+>>> Val_K: 16, Accuracy: 33.99%
+>>> Val_K: 17, Accuracy: 33.79%
+>>> Val_K: 18, Accuracy: 33.66%
+>>> Val_K: 19, Accuracy: 33.56%
+>>> Val_K: 20, Accuracy: 33.57%
+>>> Best_K: 1, Accuracy: 35.39%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 10000, VAL_SAMPLE: 2000
+
+>>> Val_K: 1, Accuracy: 36.10%
+>>> Val_K: 2, Accuracy: 33.10%
+>>> Val_K: 3, Accuracy: 34.45%
+>>> Val_K: 4, Accuracy: 35.20%
+>>> Val_K: 5, Accuracy: 35.35%
+>>> Val_K: 6, Accuracy: 35.35%
+>>> Val_K: 7, Accuracy: 34.40%
+>>> Val_K: 8, Accuracy: 34.75%
+>>> Val_K: 9, Accuracy: 34.40%
+>>> Val_K: 10, Accuracy: 35.60%
+>>> Val_K: 11, Accuracy: 35.05%
+>>> Val_K: 12, Accuracy: 34.50%
+>>> Val_K: 13, Accuracy: 34.00%
+>>> Val_K: 14, Accuracy: 33.90%
+>>> Val_K: 15, Accuracy: 34.40%
+>>> Val_K: 16, Accuracy: 34.55%
+>>> Val_K: 17, Accuracy: 34.50%
+>>> Val_K: 18, Accuracy: 34.65%
+>>> Val_K: 19, Accuracy: 34.35%
+>>> Val_K: 20, Accuracy: 34.35%
+>>> Best_K: 1, Accuracy: 36.10%
