@@ -107,8 +107,8 @@ class kNN:
 
         self.test_data: NDArray = np.array([])
         self.test_label: NDArray = np.array([])
-    
-    
+
+
     def distances(self, train_data: NDArray | None=None, test_data: NDArray | None=None, pieces=None):
         if train_data is None: 
             train_data = self.train_data
@@ -150,7 +150,7 @@ class kNN:
             self.test_data = self.test_data.astype(np.float32) / 255.0
 
         print("Data is normalized to float32...")
-    
+
 
     def loads(self):
         def unpickle(file_name: str) -> dict:
@@ -164,7 +164,7 @@ class kNN:
             array = np.concatenate(data_list, axis=axis)
             print(f"-> Got {msg} array shaped {array.shape} dtype {array.dtype}")
             return array
-        
+
         print("Start loading cifar-10 batches...")
         self.meta_dict = unpickle('batches.meta')
         self.test_dict = unpickle('test_batch')
@@ -211,7 +211,7 @@ class kNN:
                 else:
                     if val_distances is None:
                         val_distances = self.distances(train_data=trn_data, test_data=val_data)
-                    
+
                     val_predict = self.predict(distances=val_distances, train_label=trn_label, k=k)
                     val_acc = self.accuracy(val_predict, val_label)
 
@@ -230,14 +230,14 @@ class kNN:
             train_label =self.train_label
         if k is None: 
             k = self.k
-        
+
         min_indexs = np.argpartition(distances, k, axis=1)[:,:k]
         predict_k = np.array(train_label[min_indexs])
         predict = np.array([np.bincount(sample).argmax() for sample in predict_k])
 
         #print(f"-> Got predict array shaped {predict.shape}")
         return predict
-    
+
 
     def accuracy(self, predict, labels=None):
         if labels is None:

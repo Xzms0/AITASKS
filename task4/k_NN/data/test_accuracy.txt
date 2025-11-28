@@ -284,3 +284,55 @@ TEST_SAMPLE: 10000, VAL_SAMPLE: 2000
 >>> Test_K: 20, Accuracy: 33.75%
 >>> Best_K: 1, Accuracy: 35.39%
 >>> Real_K: 1, Accuracy: 35.39%
+------------------------------------
+METRIC: L1, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 5000, VAL_SAMPLE: 5000
+
+>>> Test_K: 1, Accuracy: 39.10%
+>>> Test_K: 2, Accuracy: 34.66%
+>>> Test_K: 3, Accuracy: 36.66%
+>>> Test_K: 4, Accuracy: 37.14%
+>>> Test_K: 5, Accuracy: 37.64%
+>>> Test_K: 6, Accuracy: 37.52%
+>>> Test_K: 7, Accuracy: 37.96%
+>>> Test_K: 8, Accuracy: 37.94%
+>>> Test_K: 9, Accuracy: 38.40%
+>>> Test_K: 10, Accuracy: 38.34%
+>>> Test_K: 11, Accuracy: 37.88%
+>>> Test_K: 12, Accuracy: 37.42%
+>>> Test_K: 13, Accuracy: 37.30%
+>>> Test_K: 14, Accuracy: 37.66%
+>>> Test_K: 15, Accuracy: 37.28%
+>>> Test_K: 16, Accuracy: 37.28%
+>>> Test_K: 17, Accuracy: 37.64%
+>>> Test_K: 18, Accuracy: 37.70%
+>>> Test_K: 19, Accuracy: 37.58%
+>>> Test_K: 20, Accuracy: 37.16%
+>>> Best_K: 1, Accuracy: 39.10%
+>>> Real_K: 1, Accuracy: 39.10%
+------------------------------------
+METRIC: L2, TRAIN_SAMPLE: 50000
+TEST_SAMPLE: 5000, VAL_SAMPLE: 5000
+
+>>> Test_K: 1, Accuracy: 35.32%
+>>> Test_K: 2, Accuracy: 31.54%
+>>> Test_K: 3, Accuracy: 33.52%
+>>> Test_K: 4, Accuracy: 33.92%
+>>> Test_K: 5, Accuracy: 33.90%
+>>> Test_K: 6, Accuracy: 33.98%
+>>> Test_K: 7, Accuracy: 33.80%
+>>> Test_K: 8, Accuracy: 34.60%
+>>> Test_K: 9, Accuracy: 34.24%
+>>> Test_K: 10, Accuracy: 33.84%
+>>> Test_K: 11, Accuracy: 34.10%
+>>> Test_K: 12, Accuracy: 34.34%
+>>> Test_K: 13, Accuracy: 34.48%
+>>> Test_K: 14, Accuracy: 34.34%
+>>> Test_K: 15, Accuracy: 34.44%
+>>> Test_K: 16, Accuracy: 34.18%
+>>> Test_K: 17, Accuracy: 34.32%
+>>> Test_K: 18, Accuracy: 34.06%
+>>> Test_K: 19, Accuracy: 34.28%
+>>> Test_K: 20, Accuracy: 33.98%
+>>> Best_K: 1, Accuracy: 35.32%
+>>> Real_K: 1, Accuracy: 35.32%
