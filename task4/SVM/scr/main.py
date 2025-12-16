@@ -1,7 +1,5 @@
 import pickle
 from pathlib import Path
-import random
-import re
 
 import numpy as np
 from numpy.typing import NDArray
@@ -13,15 +11,23 @@ DATA_BATCH = 5
 
 TEST_SAMPLE = 10000
 TRAIN_SAMPLE = 50000
-DESCENT_TIMES = 1000
-
 
 
 class SVM:
     def __init__(self):
-        self.weights: NDArray = np.array([])
         self.delta = 1.0
-        self.decay = 0.0001
+        self.reg = 1e-4 #1e-4
+        self.std = 1e-3
+        self.step = 3e-3 #3e-3
+
+        try:
+            weight_name = None
+            with open(ROOT_DIR / 'data' / 'best_weight.txt', 'r') as f:
+                weight_name = f.readline()
+
+            self.weights = np.load(ROOT_DIR / 'data' / f'{weight_name}.npy')
+        except:
+            self.weights = np.array([])
 
         self.train_data: NDArray = np.array([])
         self.train_label: NDArray = np.array([])
@@ -31,19 +37,19 @@ class SVM:
 
         self.label_list = []
 
-        
         self.loads()
         self.normalize()
-        #self.train()
 
 
     def normalize(self):
         if self.train_data is not None:
-            self.train_data = self.train_data.astype(np.float32) / 255.0
+            self.train_data = self.train_data.astype(np.float64) / 255.0
+            #self.train_data = (self.train_data - np.mean(self.train_data)) #/ 255.0
         if self.test_data is not None:
-            self.test_data = self.test_data.astype(np.float32) / 255.0
+            self.test_data = self.test_data.astype(np.float64) / 255.0
+            #self.test_data = (self.test_data - np.mean(self.test_data)) #/ 255.0
 
-        print("Data is normalized to float32...")
+        print("Data is normalized to float64...")
 
 
     def loads(self):
@@ -78,23 +84,22 @@ class SVM:
         if weights is None:
             weights = self.weights
 
-        
-        
         scores = data.dot(weights)
         return scores
     
 
-    def loss(self, scores: NDArray, labels, weights=None, delta=1.0, decay=0.0001):
+    def loss(self, scores: NDArray, labels, weights=None):
         if weights is None:
             weights = self.weights
 
         sample = scores.shape[0]
         correct_scores = scores[range(sample), labels]
 
-        margins = np.array(np.maximum(0, scores - correct_scores[:, np.newaxis] + delta))
+        margins = np.array(np.maximum(0, scores - correct_scores[:, np.newaxis] + self.delta))
         margins[range(sample), labels] = 0
+
         data_loss = np.sum(margins) / sample
-        reg_loss = np.sum(weights ** 2) * decay
+        reg_loss = np.sum(weights ** 2) * self.reg
 
         loss = data_loss + reg_loss
         return loss
@@ -113,33 +118,28 @@ class SVM:
 
         binary[range(sample), self.train_label] = -activation
 
-        grad = self.train_data.transpose().dot(binary) / sample
+        data_grad = self.train_data.transpose().dot(binary) / sample
+        reg_grad = weights * self.reg
+
+        grad = data_grad + reg_grad
         return grad
 
     def gradient_value(self, weights):
-        """
-        a naive implementation of numerical gradient of f at x
-        - f should be a function that takes a single argument
-        - x is the point (numpy array) to evaluate the gradient at
-        """
         scores = self.scores(self.train_data, weights)
-        fx = self.loss(scores, self.train_label, weights) # evaluate function value at original point
+        fx = self.loss(scores, self.train_label, weights)
         grad = np.zeros(weights.shape)
         h = 0.00001
 
-        # iterate over all indexes in x
         for ix, old_value in np.ndenumerate(weights):
 
-            # evaluate function at x+h
             old_value = weights[ix]
-            weights[ix] = old_value + h # increment by h
+            weights[ix] = old_value + h
 
             scores = self.scores(self.train_data, weights)
-            fxh = self.loss(scores, self.train_label, weights) # evalute f(x + h)
-            weights[ix] = old_value # restore to previous value (very important!)
+            fxh = self.loss(scores, self.train_label, weights)
+            weights[ix] = old_value
 
-            # compute the partial derivative
-            grad[ix] = (fxh - fx) / h # the slope
+            grad[ix] = (fxh - fx) / h 
 
             show = int(24 * (ix[0]+1) / 3073)
             print(f"Process: {(ix[0]+1) / 3073 * 100:.2f}% " + "/" + "/" * show + "-" * (24 - show) + "/", end='\r')
@@ -166,8 +166,9 @@ class SVM:
 
             weights = np.load(ROOT_DIR / 'data' / f'{weight_name}.npy')
         except:
-            weights = np.random.randn(3073, 10) * 0.001
-            
+            weights = np.random.randn(3073, 10) * self.std
+            weights[3072, :] = 0
+
         best_weights = weights.copy()
         best_loss = float("inf")
 
@@ -175,10 +176,10 @@ class SVM:
         original_loss = self.loss(scores, self.train_label, weights=weights)
         print(f"The original loss was {original_loss}")
 
-        times = 200
+        times = 100
         for i in range(times):
             grad = self.gradient_analysis(weights)
-            weights = weights - grad * 0.003
+            weights = weights - grad * self.step
 
             scores = self.scores(self.train_data, weights=weights)
             loss = self.loss(scores, self.train_label, weights=weights)
@@ -210,15 +211,10 @@ if __name__ == '__main__':
     svm = SVM()
     svm.trick()
     
-    accuracies = []
-    for i in range(100):
-        svm.train()
-        scores = svm.scores(svm.test_data)
-        loss = svm.loss(scores, svm.test_label)
-        predict = svm.predict(scores)
-        accuracy = svm.accuracy(predict, svm.test_label)
+    #svm.train()
+    scores = svm.scores(svm.test_data)
+    loss = svm.loss(scores, svm.test_label)
+    predict = svm.predict(scores)
+    accuracy = svm.accuracy(predict, svm.test_label)
 
-        print(f"Train {i}: {loss}, {accuracy*100:.2f}%\n")
-        accuracies.append(accuracy)
-    
-    print(accuracies)
+    print(f"\nThe loss was {loss}\nThe accuracy was {accuracy*100:.2f}%\n")

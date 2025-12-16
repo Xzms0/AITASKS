@@ -1,37 +1,26 @@
 import numpy as np
-from main import SVM, ROOT_DIR
+from main import ROOT_DIR
 import matplotlib.pyplot as plt
 
-score = np.array([[10, 12], [5, 6], [10, 7]])
+weight_name = None
+with open(ROOT_DIR / 'data' / 'best_weight.txt', 'r') as f:
+    weight_name = f.readline()
 
-print(score.argmax(axis=1).shape)
-
-o = np.zeros((10000,3072))
-x = np.ones((10000,1))
-#np.save("x.npy", x)
-
-print(np.concatenate((o,x), axis=1).shape)
-
-show = SVM()
-show.loads()
-
-image = show.train_data[40]
-label = int(show.train_label[40])
-print(show.label_list[label])
-
-print(image.shape)
-
-image = image.reshape(3, 32, 32)
-image = image.transpose((1, 2, 0))
-plt.imshow(image)
-plt.show()
-'''
-weights = np.load(ROOT_DIR / 'data' / '7.npy')
-weights = (weights[:3072] + 0.017) * 30
-print(np.mean(weights))
+weights = np.load(ROOT_DIR / 'data' / f'{weight_name}.npy')
+weights = weights[:-1]
 weights = weights.transpose()
-weights = weights.reshape(3, 320, 32)
-weights = weights.transpose((2, 1, 0))
-plt.xticks([32 * i - 1 for i in range(11)])
-plt.imshow(weights)
-plt.show()'''
+weights = weights.reshape(10, 3, 32, 32)
+
+w_min, w_max = np.min(weights), np.max(weights)
+weights = weights.transpose((0, 2, 3, 1))
+
+classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+for i in range(10):
+    plt.subplot(2, 5, i + 1)
+
+    wimg = 255.0 * (weights[i, :, :, :].squeeze() - w_min) / (w_max - w_min)
+    plt.imshow(wimg.astype('uint8'))
+    plt.axis('off')
+    plt.title(classes[i])
+
+plt.show()
