@@ -15,7 +15,6 @@ TRAIN_SAMPLE = 50000
 
 class Softmax:
     def __init__(self):
-        self.delta = 1.0
         self.reg = 1e-3 #1e-4
         self.std = 1e-3
         self.step = 2e-2 #3e-3
