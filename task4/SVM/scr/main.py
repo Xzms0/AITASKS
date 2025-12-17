@@ -99,7 +99,7 @@ class SVM:
         margins[range(sample), labels] = 0
 
         data_loss = np.sum(margins) / sample
-        reg_loss = np.sum(weights ** 2) * self.reg
+        reg_loss = np.sum(weights ** 2) * self.reg * 0.5
 
         loss = data_loss + reg_loss
         return loss
@@ -211,7 +211,7 @@ if __name__ == '__main__':
     svm = SVM()
     svm.trick()
     
-    #svm.train()
+    svm.train()
     scores = svm.scores(svm.test_data)
     loss = svm.loss(scores, svm.test_label)
     predict = svm.predict(scores)
