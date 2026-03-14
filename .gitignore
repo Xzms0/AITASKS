@@ -194,4 +194,4 @@ cython_debug/
 #.idea/
 
 # Data
-task4/cifar_10
+*cifar_10
