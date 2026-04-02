@@ -1,35 +1,41 @@
 import pickle
-from pathlib import Path
-
 import numpy as np
 
 
-def loader(path, batch):
-    def unpickle(file_name: str) -> dict:
-            with open(path / file_name,'rb') as file:
-                dict = pickle.load(file,encoding='bytes')
-
-            print(f"-> Loaded {file_name} with {dict.keys()}")
-            return dict
-        
-    def to_array(data_list: list, msg='an', axis=0):
-        array = np.concatenate(data_list, axis=axis)
-        print(f"-> Got {msg} array shaped {array.shape} dtype {array.dtype}")
-        return array
-
-    print("Start loading cifar-10 batches...")
-    meta_dict = unpickle('batches.meta')
+def load_cifar10(path, batch=5, normalize=True):
+    def unpickle(file_name):
+        with open(path / file_name, 'rb') as f:
+            return pickle.load(f, encoding='bytes')
+    
+    print("Loading CIFAR-10...")
+    
+    # 加载
+    meta = unpickle('batches.meta')
     test_dict = unpickle('test_batch')
-    train_dict = []
-    for i in range(batch):
-        train_dict.append(unpickle(f'data_batch_{i+1}'))
+    
+    X_train_list, y_train_list = [], []
+    for i in range(min(batch, 5)):
+        d = unpickle(f'data_batch_{i+1}')
+        X_train_list.append(d[b'data'])
+        y_train_list.append(d[b'labels'])
+    
+    X_train = np.concatenate(X_train_list, axis=0)
+    y_train = np.concatenate(y_train_list, axis=0)
+    X_test = test_dict[b'data']
+    y_test = np.array(test_dict[b'labels'])
+    
+    # Reshape
+    X_train = X_train.reshape(-1, 3, 32, 32)
+    X_test = X_test.reshape(-1, 3, 32, 32)
+    
+    # 归一化
+    if normalize:
+        X_train = X_train.astype(np.float32) / 255.0
+        X_test = X_test.astype(np.float32) / 255.0
+    
+    label_list = [name.decode('utf-8') for name in meta[b'label_names']]
 
-    train_data = to_array([train_dict[i].get(b'data') for i in range(len(train_dict))], msg="train_data")
-    train_label = to_array([train_dict[i].get(b'labels') for i in range(len(train_dict))], msg="train_label")
-
-    test_data = to_array([test_dict.get(b'data')], msg="test_data")
-    test_label = to_array([test_dict.get(b'labels')], msg="test_label")
-
-    label_list = meta_dict[b'label_names']
-
-    return train_data, train_label, test_data, test_label, label_list
+    print(f"X_train {X_train.shape}, X_test {X_test.shape}")
+    print(f"y_train {y_train.shape}, y_test {y_test.shape}")
+    
+    return X_train, y_train, X_test, y_test, label_list

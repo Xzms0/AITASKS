@@ -1,5 +1,7 @@
 import numpy as np
 
+from utils import im2col
+
 class Conv2D:
     def __init__(self, in_chanels=3, out_chanels=16,kernel_size=3,
                  stride=1, padding=1, std=1e-3):
@@ -9,48 +11,67 @@ class Conv2D:
         self.stride = stride
         self.padding = padding
 
-        self.params = np.random.randn(in_chanels, kernel_size, kernel_size, out_chanels) * std
+        self.params = {}
+        self.params['W'] = np.random.randn(out_chanels, in_chanels, kernel_size, kernel_size) * std
+
+        self.grad = {}
         
         self.cache = None
 
 
-    def _pad(self, X):
-        X_copy = X.copy()
-        pad1 = np.zeros((X.shape[0], X.shape[1], 1, X.shape[3]))
-        X_copy = np.concatenate((pad1, X_copy, pad1), axis=2)
-        pad2 = np.zeros((X.shape[0], X.shape[1], X.shape[2]+self.padding*2, 1))
-        X_copy = np.concatenate((pad2, X_copy, pad2))
-
-        return X_copy
+    def  parameters(self):
+        return (self.params['W'], self.grad['W'])
     
 
     def forward(self, X):
         '''
-        X: N*in_chanels*width*height
-        y: N*out_chanels*width*height
+        X: (N, in_chanels, height, width)
+        return: (N, out_chanels, height, width)
         '''
-        self.cache = X.copy()
-        X_pad = self._pad(X)
+        pad = ((0, 0),(0, 0),
+                (self.padding, self.padding),
+                (self.padding, self.padding))
+        
+        X_pad = np.pad(X, pad, mode='constant')
+        self.cache = X_pad
 
-        out_width = (X_pad.shape[2] - self.kernel_size) // self.stride + 1
-        out_height = (X_pad.shape[3] - self.kernel_size) // self.stride + 1
+        X_col = im2col.to_col(X_pad, self.kernel_size, self.stride)
+        N, C, D, L = X_col.shape
+        X_col = X_col.reshape(N, -1, L) #(N, C_in*D, L)
 
-        out = np.zeros((X.shape[0], self.out_chanels, out_width, out_height))
+        W_col = self.params['W'].reshape(self.out_chanels, -1) #(C_out, C_in*D)
+        y = W_col @ X_col #(N, out_chanels, L)
 
-        for i in range(out_width):
-            for j in range(out_height):
-                w_start = i * self.stride
-                w_end = w_start + self.kernel_size
-
-                h_start = j * self.stride
-                h_end = h_start + self.kernel_size
-
-                piece = X_pad[:, :, w_start:w_end, h_start:h_end]
-                piece = np.tensordot(piece, self.params, axes=3)
-                out[:, :, i, j] = piece
-
-        return out
+        
+        out_height = (X.shape[2] - self.kernel_size) // self.stride + 1
+        out_width = (X.shape[3] - self.kernel_size) // self.stride + 1
+        y = y.reshape(N, self.out_chanels, out_height, out_width)
+        return y
 
 
-    def backward(self):
-        pass
+    def backward(self, grad_output):
+        '''
+        grad_output: (N, C_out, H_out, W_out)
+        '''
+        X_pad = self.cache
+        N, C_out, H_out, W_out = grad_output.shape
+        X_col = im2col.to_col(X_pad, H_out, self.stride) #(N, C_in, L, D)
+        X_col = X_col.transpose(0, 2, 1, 3).reshape(N, H_out*W_out, -1) #(N, L, C_in*D)
+
+        G_col = grad_output.reshape(N, C_out, -1) #(N, C_out, L)
+        grad_W = (G_col @ X_col).reshape(N, C_out, self.in_chanels,\
+                                         self.kernel_size, self.kernel_size)
+        grad_W = np.sum(grad_W, axis=0)
+
+        self.grad['W'] = grad_W #(C_out, C_in, K, K)
+
+        N, C_in, H_in, W_in = X_pad.shape
+        W_col = self.params['W'].reshape(C_out, -1) #(C_out, C_in*D)
+        grad_X = W_col.T @ G_col #(N, C_in*D, H_out*W_out)
+
+        grad_input = im2col.to_im(grad_X, (N, C_in, H_in, W_in),\
+                                  self.kernel_size, self.stride) #(N, C_in, H, W)
+        
+        grad_input = grad_input[:, :, self.padding:H_in-self.padding,
+                                self.padding:W_in-self.padding]
+        return grad_input

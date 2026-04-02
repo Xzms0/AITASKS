@@ -5,10 +5,16 @@ class ReLU:
         self.cache = None
 
 
+    def parameters(self):
+        pass
+
+
     def forward(self, X):
-        self.cache = X.copy()
+        self.cache = X
         return np.maximum(0, X)
 
 
-    def backward(self):
-        pass
+    def backward(self, grad_output):
+        grad_input = grad_output.copy()
+        grad_input[self.cache <= 0] = 0
+        return grad_input

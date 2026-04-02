@@ -1,8 +1,12 @@
 import numpy as np
 
-class Softmax:
+class SoftmaxCrossEntropy:
     def __init__(self):
         self.cache = None
+
+
+    def parameters(self):
+        pass
 
 
     def forward(self, X, y):
@@ -22,4 +26,6 @@ class Softmax:
 
 
     def backward(self):
-        pass
+        X_prob, y = self.cache
+        grad_input =  X_prob - y
+        return grad_input
