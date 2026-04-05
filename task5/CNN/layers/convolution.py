@@ -55,7 +55,7 @@ class Conv2D:
         '''
         X_pad = self.cache
         N, C_out, H_out, W_out = grad_output.shape
-        X_col = im2col.to_col(X_pad, self.kernel_size, self.stride) #(N, C_in, L, D)
+        X_col = im2col.to_col(X_pad, H_out, self.stride) #(N, C_in, L, D)
         X_col = X_col.transpose(0, 2, 1, 3).reshape(N, H_out*W_out, -1) #(N, L, C_in*D)
 
         G_col = grad_output.reshape(N, C_out, -1) #(N, C_out, L)
