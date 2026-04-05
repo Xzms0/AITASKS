@@ -12,7 +12,7 @@ class Conv2D:
         self.padding = padding
 
         self.params = {}
-        self.params['W'] = np.random.randn(out_chanels, in_chanels, kernel_size, kernel_size) * std
+        self.params['W'] = np.random.randn(out_chanels, in_chanels, kernel_size, kernel_size) * np.sqrt(2.0 / (in_chanels * kernel_size * kernel_size))
 
         self.grad = {}
         
@@ -20,7 +20,7 @@ class Conv2D:
 
 
     def  parameters(self):
-        return (self.params['W'], self.grad['W'])
+        return [(self.params['W'], self.grad['W'])]
     
 
     def forward(self, X):
@@ -43,8 +43,8 @@ class Conv2D:
         y = W_col @ X_col #(N, out_chanels, L)
 
         
-        out_height = (X.shape[2] - self.kernel_size) // self.stride + 1
-        out_width = (X.shape[3] - self.kernel_size) // self.stride + 1
+        out_height = (X_pad.shape[2] - self.kernel_size) // self.stride + 1
+        out_width = (X_pad.shape[3] - self.kernel_size) // self.stride + 1
         y = y.reshape(N, self.out_chanels, out_height, out_width)
         return y
 
@@ -55,7 +55,7 @@ class Conv2D:
         '''
         X_pad = self.cache
         N, C_out, H_out, W_out = grad_output.shape
-        X_col = im2col.to_col(X_pad, H_out, self.stride) #(N, C_in, L, D)
+        X_col = im2col.to_col(X_pad, self.kernel_size, self.stride) #(N, C_in, L, D)
         X_col = X_col.transpose(0, 2, 1, 3).reshape(N, H_out*W_out, -1) #(N, L, C_in*D)
 
         G_col = grad_output.reshape(N, C_out, -1) #(N, C_out, L)

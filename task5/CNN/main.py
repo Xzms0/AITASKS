@@ -1,17 +1,26 @@
+from pathlib import Path
+
 import numpy as np
+import pickle
+
 from model import CNN
-from utils import loader, optimizer, solver
+from utils import loader, optimizer, solver, manager
+
+ROOT_DIR = Path(__file__).absolute().parent
+TRAIN_SAMPLE = 50000
 
 def main():
     print("Loading CIFAR-10 data...")
     
     X_train, y_train, X_test, y_test, label_names = loader.load_cifar10(
-        path='./cifar-10-batches-py',
+        path=ROOT_DIR / 'cifar_10',
         batch=5,
         normalize=True
     )
     
     model = CNN()
+    #model = manager.load_model(ROOT_DIR / 'cifar_10' / 'model.pkl')
+
     print("\nModel created with layers:")
     for i, layer in enumerate(model.model):
         print(f" {i}: {layer.__class__.__name__}")
@@ -24,19 +33,23 @@ def main():
         model=model,
         loss_fn=model.loss_fn,
         optimizer=optimizer_sgd,
-        X_train=X_train,
-        y_train=y_train,
-        epochs=50,
-        batch_size=64,
+        X=X_train[:TRAIN_SAMPLE, :, :, :],
+        y=y_train[:],
+        epochs=100,
+        batch_size=500,
         verbose=True,
-        print_every=5,
+        print_every=10,
+        decay_every=50
     )
 
     losses = solver_obj.train()
-    acc = solver_obj.evaluate(X_test, y_test)
-    print(f"Test Accuracy: {acc:.4f}")
 
-    solver_obj.save_model('model.pkl')
+    print("\nEvaluating...")
+    acc = solver_obj.evaluate(X_test, y_test)
+    print(f"Test Accuracy: {acc*100:.2f}%")
+
+    print("\nSaving...")
+    manager.save_model(solver_obj.model, ROOT_DIR / 'cifar_10' / 'model.pkl')
 
 
 if __name__ == "__main__":

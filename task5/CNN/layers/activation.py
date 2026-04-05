@@ -5,10 +5,6 @@ class ReLU:
         self.cache = None
 
 
-    def parameters(self):
-        pass
-
-
     def forward(self, X):
         self.cache = X
         return np.maximum(0, X)

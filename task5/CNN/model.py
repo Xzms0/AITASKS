@@ -1,41 +1,52 @@
-from layers import activation, convolution, dropout, linear, loss, pool
+from layers import activation, convolution, dropout, linear, loss, pool, normalization
+from utils import manager
 
 class CNN:
     def __init__(self):
         
         self.model = [
-            convolution.Conv2D(in_chanels=3, out_chanels=16, kernel_size=3, stride=1, padding=1),
+            convolution.Conv2D(in_chanels=3, out_chanels=8, kernel_size=3, stride=1, padding=1),
+            normalization.BatchNorm(num_features=8),
             activation.ReLU(),
-            pool.MaxPool(pool_size=2, stride=2),  # 16x16x16
+            pool.MaxPool(pool_size=2, stride=2),  # 8x16x16
             
-            convolution.Conv2D(in_chanels=16, out_chanels=32, kernel_size=3, stride=1, padding=1),
+            convolution.Conv2D(in_chanels=8, out_chanels=16, kernel_size=3, stride=1, padding=1),
+            normalization.BatchNorm(num_features=16),
             activation.ReLU(),
-            pool.MaxPool(pool_size=2, stride=2),  # 32x8x8
+            pool.MaxPool(pool_size=2, stride=2),  # 16x8x8
             
-            convolution.Conv2D(in_chanels=32, out_chanels=64, kernel_size=3, stride=1, padding=1),
+            #convolution.Conv2D(in_chanels=32, out_chanels=64, kernel_size=3, stride=1, padding=1),
+            #normalization.BatchNorm(num_features=64),
+            #activation.ReLU(),
+            #pool.MaxPool(pool_size=2, stride=2),  # 64x4x4
+
+            #pool.GlobalAvgPool(),
+            linear.Flatten(),
+            linear.Linear(in_features=16*8*8, out_features=128),
             activation.ReLU(),
-            pool.MaxPool(pool_size=2, stride=2),  # 64x4x4
-            
-            linear.Linear(in_features=64*4*4, out_features=256),
-            activation.ReLU(),
-            #dropout.Dropout(0.5),
-            pool.GlobalAvgPool(),
-            linear.Linear(in_features=256, out_features=10)
+            dropout.Dropout(0.5),
+            linear.Linear(in_features=128, out_features=10)
         ]
         
         self.loss_fn = loss.SoftmaxCrossEntropy()
     
+
     def forward(self, X):
+        #print(f"Original Shape: {X.shape}")
         out = X
         for layer in self.model:
+            #manager.data_monitor(out)
             out = layer.forward(out)
+            #print(f"{layer.__class__.__name__} Shape: {out.shape}")
         return out
     
+
     def loss(self, X, y):
         scores = self.forward(X)
         loss = self.loss_fn.forward(scores, y)
         return scores, loss
     
+
     def backward(self, grad=None):
         if grad is None:
             grad = self.loss_fn.backward()
@@ -45,6 +56,7 @@ class CNN:
         
         return grad
     
+
     def parameters(self):
         params_list = []
         for layer in self.model:

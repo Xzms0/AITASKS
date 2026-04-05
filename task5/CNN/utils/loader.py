@@ -21,12 +21,17 @@ def load_cifar10(path, batch=5, normalize=True):
     
     X_train = np.concatenate(X_train_list, axis=0)
     y_train = np.concatenate(y_train_list, axis=0)
+
+    idx = np.random.permutation(X_train.shape[0])
+    X_train = X_train[idx]
+    y_train = y_train[idx]
+
     X_test = test_dict[b'data']
     y_test = np.array(test_dict[b'labels'])
     
     # Reshape
-    X_train = X_train.reshape(-1, 3, 32, 32)
-    X_test = X_test.reshape(-1, 3, 32, 32)
+    X_train = X_train.reshape(-1, 3, 32, 32).astype(np.float32)
+    X_test = X_test.reshape(-1, 3, 32, 32).astype(np.float32)
     
     # 归一化
     if normalize:

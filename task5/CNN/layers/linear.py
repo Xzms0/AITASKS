@@ -1,10 +1,10 @@
 import numpy as np
 
 class Linear:
-    def __init__(self, in_features, out_features, std=1e-3, bias=True):
+    def __init__(self, in_features, out_features, bias=True):
         self.params = {}
-        self.params['W'] = np.random.randn(in_features, out_features) * std
-        self.params['b'] = np.random.randn(out_features) * std
+        self.params['W'] = np.random.randn(in_features, out_features) * np.sqrt(2.0 / in_features)
+        self.params['b'] = np.random.randn(out_features) * np.sqrt(2.0 / in_features)
         
         self.grad = {}
         self.grad['W'] = None
@@ -46,3 +46,17 @@ class Linear:
         
         grad_input = grad_output @ self.params['W'].T
         return grad_input
+    
+
+class Flatten:
+    def __init__(self):
+        self.cache = None
+    
+
+    def forward(self, X):
+        self.cache = X.shape
+        return X.reshape(X.shape[0], -1)
+    
+
+    def backward(self, grad_output):
+        return grad_output.reshape(self.cache)

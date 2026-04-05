@@ -1,12 +1,17 @@
 import numpy as np
 
 class SGD:
-    def __init__(self, lr=0.01):
+    def __init__(self, lr=0.01, decay_rate=0.95):
         self.lr = lr
+        self.decay_rate = decay_rate
     
     def update(self, model):
         for param, grad in model.parameters():
             param -= self.lr * grad
+
+    
+    def decay(self):
+        self.lr *= self.decay_rate
 
 
 
