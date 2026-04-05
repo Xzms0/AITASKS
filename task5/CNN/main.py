@@ -8,6 +8,9 @@ from utils import loader, optimizer, solver, manager
 
 ROOT_DIR = Path(__file__).absolute().parent
 TRAIN_SAMPLE = 50000
+TEST_SAMPLE = 1000
+
+np.random.seed(13)
 
 def main():
     print("Loading CIFAR-10 data...")
@@ -25,7 +28,7 @@ def main():
     for i, layer in enumerate(model.model):
         print(f" {i}: {layer.__class__.__name__}")
     
-    optimizer_sgd = optimizer.SGD(lr=0.01)
+    optimizer_sgd = optimizer.SGD(lr=0.1)
     
     print("\nStart training...")
     
@@ -34,18 +37,18 @@ def main():
         loss_fn=model.loss_fn,
         optimizer=optimizer_sgd,
         X=X_train[:TRAIN_SAMPLE, :, :, :],
-        y=y_train[:],
+        y=y_train[:TRAIN_SAMPLE],
         epochs=100,
-        batch_size=500,
+        batch_size=100,
         verbose=True,
         print_every=10,
-        decay_every=50
+        decay_every=10
     )
 
     losses = solver_obj.train()
 
     print("\nEvaluating...")
-    acc = solver_obj.evaluate(X_test, y_test)
+    acc = solver_obj.evaluate(X_test[:TEST_SAMPLE, :, :, :], y_test[:TEST_SAMPLE])
     print(f"Test Accuracy: {acc*100:.2f}%")
 
     print("\nSaving...")

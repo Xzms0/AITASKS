@@ -15,17 +15,17 @@ class CNN:
             activation.ReLU(),
             pool.MaxPool(pool_size=2, stride=2),  # 16x8x8
             
-            #convolution.Conv2D(in_chanels=32, out_chanels=64, kernel_size=3, stride=1, padding=1),
-            #normalization.BatchNorm(num_features=64),
-            #activation.ReLU(),
-            #pool.MaxPool(pool_size=2, stride=2),  # 64x4x4
+            convolution.Conv2D(in_chanels=16, out_chanels=32, kernel_size=3, stride=1, padding=1),
+            normalization.BatchNorm(num_features=32),
+            activation.ReLU(),
+            pool.MaxPool(pool_size=2, stride=2),  # 32x4x4
 
             #pool.GlobalAvgPool(),
             linear.Flatten(),
-            linear.Linear(in_features=16*8*8, out_features=128),
+            linear.Linear(in_features=32*4*4, out_features=100),
             activation.ReLU(),
             dropout.Dropout(0.5),
-            linear.Linear(in_features=128, out_features=10)
+            linear.Linear(in_features=100, out_features=10)
         ]
         
         self.loss_fn = loss.SoftmaxCrossEntropy()

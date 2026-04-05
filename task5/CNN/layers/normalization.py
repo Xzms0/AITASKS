@@ -50,15 +50,23 @@ class BatchNorm:
         grad_output: (N, C, H, W)
         '''
         X, X_norm, avg, var = self.cache
+
         self.grad['gamma'] = np.sum(grad_output * X_norm, axis=(0, 2, 3), keepdims=True)
         self.grad['beta'] = np.sum(grad_output, axis=(0, 2, 3), keepdims=True)
 
-        grad_norm = grad_output * self.params['gamma']
+        N, C, H, W = X.shape
+        gamma = self.params['gamma']
 
-        grad_var = grad_norm * (X - avg) * -0.5 * (var + 1e-8) ** -1.5
-        grad_avg = -np.sum(grad_norm  / np.sqrt(var + 1e-8), axis=(0, 2, 3), keepdims=True) + \
-            grad_var * -2 * np.mean(X - avg, axis=(0, 2, 3), keepdims=True)
-        grad_input = grad_norm  / np.sqrt(var + 1e-8) + \
-            grad_var * 2 * (X - avg) / X.shape[0] + grad_avg / X.shape[0]
-        
+        # 计算中间变量
+        std = np.sqrt(var + 1e-8)
+        X_centered = X - avg
+        dX_norm = grad_output * gamma
+
+        term1 = dX_norm / std
+        term2 = -np.mean(dX_norm, axis=(0, 2, 3), keepdims=True) / std
+        term3 = -X_norm * np.mean(dX_norm * X_norm, axis=(0, 2, 3), keepdims=True) / std
+
+        grad_input = term1 + term2 + term3
+
         return grad_input
+        
